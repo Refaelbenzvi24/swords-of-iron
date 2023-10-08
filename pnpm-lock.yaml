@@ -836,11 +836,11 @@ importers:
         specifier: ^4.9.4
         version: 4.9.4
 
-  packages/modules/LocalStorage:
+  packages/modules/localStorage:
     devDependencies:
       typescript:
         specifier: ^5.0.0
-        version: 5.1.5
+        version: 5.2.2
 
   packages/modules/validations:
     dependencies:
@@ -914,7 +914,7 @@ importers:
     devDependencies:
       '@acme/localstorage':
         specifier: '*'
-        version: link:../modules/LocalStorage
+        version: link:../modules/localStorage
       '@acme/tailwind-config':
         specifier: '*'
         version: link:../config/tailwind
