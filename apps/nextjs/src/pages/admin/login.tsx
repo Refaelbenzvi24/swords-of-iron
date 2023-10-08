@@ -21,7 +21,7 @@ type LoginValidationSchema = z.infer<typeof loginValidation>
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = await getServerSession(context)
-	
+
 	if (session && session.user) {
 		return {
 			redirect: {
@@ -30,11 +30,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			}
 		}
 	}
-	
+
 	const ssg = await getProxySSGHelpers(context)
-	
+
 	await ssg.auth.getSession.prefetch()
-	
+
 	return {
 		props: {
 			trpcState: ssg.dehydrate()
@@ -44,12 +44,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Page = () => {
 	const router = useRouter()
-	
+
 	const {t} = useTranslation()
 	const {status} = useSession()
-	
+
 	const [formHasSubmitted, setFormHasSubmitted] = useState(false)
-	
+
 	const {
 		handleSubmit,
 		reset,
@@ -59,7 +59,7 @@ const Page = () => {
 		resolver: zodResolver(loginValidation),
 		mode: "onChange"
 	})
-	
+
 	const onSubmit: SubmitHandler<LoginValidationSchema> = async (data) => {
 		await signIn('credentials', {
 			redirect: false,
@@ -68,19 +68,19 @@ const Page = () => {
 		})
 		reset()
 	}
-	
-	
+
+
 	useEffect(() => {
 		if (status === 'authenticated') void router.push('/admin')
 	}, [status])
-	
+
 	return (
 		<>
 			<Head>
-				<title>CS Skins | Login</title>
-				<meta name="description" content={`ים - סוכנות נדל"ן`}/>
+				<title>Swords Of Iron | Login</title>
+				<meta name="description" content={`Swords Of Iron`}/>
 			</Head>
-			
+
 			<main className="h-full">
 				<Col className="h-full justify-center items-center mx-auto min-[600px]:w-[580px] px-[30px]">
 					<Row className="items-center justify-center space-x-[18px] rtl:space-x-reverse w-full px-[24px] pb-[120px]">
@@ -94,7 +94,7 @@ const Page = () => {
 						<Divider className="max-[800px]:hidden"
 						         thickness={'2px'}/>
 					</Row>
-					
+
 					<form className="flex flex-col w-full items-center justify-center"
 					      onSubmit={(event) => {
 						      if (!formHasSubmitted) setFormHasSubmitted(() => true)
@@ -108,7 +108,7 @@ const Page = () => {
 								label={t('forms:admin.login.labels.email')}
 								error={!!errors.email}
 								helperText={errors.email?.message ? t(errors.email?.message) : ""}/>
-							
+
 							<TextField
 								{...register('password')}
 								type="password"
@@ -118,7 +118,7 @@ const Page = () => {
 								error={!!errors.password}
 								helperText={errors.password?.message ? t(errors.password?.message) : ""}/>
 						</Col>
-						
+
 						<Button
 							type="submit"
 							width="200px"

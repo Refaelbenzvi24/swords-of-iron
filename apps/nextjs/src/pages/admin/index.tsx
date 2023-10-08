@@ -37,8 +37,8 @@ const Page = () => {
 	return (
 		<>
 			<Head>
-				<title>swords-of-iron | Admin</title>
-				<meta name="description" content=""/>
+				<title>Swords Of Iron | Admin</title>
+				<meta name="description" content="Swords Of Iron"/>
 			</Head>
 
 			<main className="h-full">
