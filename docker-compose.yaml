@@ -1,12 +1,12 @@
 services:
   postgres:
-    container_name: postgres.cs-skins_container
+    container_name: postgres.swords-of-iron_container
     image: postgres
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 1234
       PGDATA: /data/postgres
-      POSTGRES_DB: ${DB_DATABASE:-cs-skins}
+      POSTGRES_DB: ${DB_DATABASE:-swords-of-iron}
     volumes:
       - postgres:/data/postgres
     ports:
@@ -16,7 +16,7 @@ services:
       - main_network
 
   pgadmin:
-    container_name: pgadmin.cs-skins_container
+    container_name: pgadmin.swords-of-iron_container
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -31,7 +31,7 @@ services:
       - postgres
 
   message_broker:
-    container_name: rabbitmq.cs-skins_container
+    container_name: rabbitmq.swords-of-iron_container
     image: rabbitmq:3-management
     environment:
       RABBITMQ_DEFAULT_USER: guest
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
 
   cronjobs_service:
-    container_name: cronjobs.cs-skins_container
+    container_name: cronjobs.swords-of-iron_container
     depends_on:
       - message_broker
       - postgres
@@ -61,12 +61,12 @@ services:
       - main_network
 
   scraper_service:
-    container_name: scraper.cs-skins_container
+    container_name: scraper.swords-of-iron_container
     depends_on:
       - message_broker
       - postgres
     environment:
-      DATABASE_URL: ${DATABASE_URL:-postgres://root:1234@localhost:5432/cs-skins?schema=public}
+      DATABASE_URL: ${DATABASE_URL:-postgres://root:1234@localhost:5432/swords-of-iron?schema=public}
       MESSAGE_BROKER_HOST: ${MESSAGE_BROKER_HOST:-localhost}
       MESSAGE_BROKER_USER: ${MESSAGE_BROKER_USER:-guest}
       MESSAGE_BROKER_PASSWORD: ${MESSAGE_BROKER_PASSWORD:-guest}
