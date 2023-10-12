@@ -12,6 +12,15 @@ import {default as withNextTranslate} from "next-translate-plugin"
 const config = withTwin(withNextTranslate({
     reactStrictMode: true,
     swcMinify:       true,
+    images:          {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'drive.google.com',
+                pathname: '/**'
+            }
+        ]
+    },
 
     // @ts-ignore-next-line
     i18n: {
