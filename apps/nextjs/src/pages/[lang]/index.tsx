@@ -41,19 +41,23 @@ const Page = () => {
 				<div
 					className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[800px] lg:max-w-[1200px] mx-auto px-6">
 					{videos.map((video) => (
-						<LinkCard href={`/${query.lang}/${video.googleDriveId}`}
-						          noPadding
-						          max-height={'200px'}
-						          max-width={'300px'}
-						          key={video.googleDriveId}>
-							<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
-							       className="object-cover"
-							       alt={'video'}
-							       width={400}
-							       height={200}
-							       sizes="100vw"
-							       style={{ width: '100%', height: '200px' }}/>
-						</LinkCard>
+						// <LinkCard href={`/${query.lang}/${video.googleDriveId}`}
+						//           noPadding
+						//           max-height={'200px'}
+						//           max-width={'300px'}
+						//           key={video.googleDriveId}>
+						// 	<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
+						// 	       className="object-cover"
+						// 	       alt={'video'}
+						// 	       width={400}
+						// 	       height={200}
+						// 	       sizes="100vw"
+						// 	       style={{ width: '100%', height: '200px' }}/>
+						// </LinkCard>
+						<video class="gdriveVideo" preload="auto" controls>
+							<source src={`https://drive.google.com/uc?export=download&id=${query.videoId}`} type='video/mp4'>
+						</video>
+						
 					))}
 				</div>
 
