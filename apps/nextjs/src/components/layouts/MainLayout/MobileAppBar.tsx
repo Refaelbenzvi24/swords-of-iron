@@ -106,59 +106,6 @@ const MainLayoutMobileAppBar = (props: MainLayoutMobileAppBarProps & ComponentPr
 								</Tooltip>
 							</Row>
 
-							<Navigation
-								className="mt-[-80px] items-center justify-center mt-auto"
-								vertical
-								options={navigationOptions}
-								selected={currentNavigation}>
-								{({ label, value }, index) => (
-									<Button
-										key={index}
-										width="fit-content"
-										onClick={() => {
-											setIsHamburgerSideBarOpen (false)
-											setTimeout (() => {
-												if (setCurrentNavigation) setCurrentNavigation ({ label, value })
-												router.push (value)
-											}, 800)
-										}}
-										text>
-										<Typography
-											variant="button"
-											className="w-fit"
-											size={1}
-											weight={500}
-											strokeSize={0.45}
-											strokeColor={theme.colorScheme.header1}
-											darkStrokeColor={theme.colorScheme.light}
-											color={theme.colorScheme.header1}
-											darkColor={theme.colorScheme.light}>
-											{label}
-										</Typography>
-									</Button>
-								)}
-							</Navigation>
-
-							<Col className="mb-[40px] mt-auto z-[300]">
-								<Row className="justify-center">
-									<Typography variant="button"
-									            color={theme.colorScheme.header1}
-									            darkColor={theme.colorScheme.light}
-									            size={0.8}
-									            weight={400}>
-										{t ("common:get in touch")}
-									</Typography>
-								</Row>
-
-								<Row className="pt-[12px] justify-center space-x-[18px] rtl:space-x-reverse">
-									<SocialLinks
-										tw="space-s-2"
-										linksProps={{
-											size: "22px"
-										}}/>
-								</Row>
-							</Col>
-
 							<div className={css`
                               position: absolute;
                               bottom: -55px;

@@ -1,13 +1,14 @@
 import Head from "next/head";
-import {Card, Row, theme, Typography} from "@acme/ui";
+import {Row, Typography} from "@acme/ui";
 import _ from "lodash";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import {api} from "~/utils/api";
 import {getProxySSGHelpers} from "~/utils/ssg"
-import {getServerSession} from "@acme/auth";
 import {GetServerSideProps} from "next";
 import LinkCard from "@acme/ui/src/nextjs/components/Cards/LinkCard";
+import {ReactElement} from "react";
+import MainLayout from "~/layouts/MainLayout";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const search = context.query?.lang as string
@@ -36,28 +37,40 @@ const Page = () => {
 				<meta name="description" content="Swords Of Iron"/>
 			</Head>
 
-			<main className="flex flex-col h-full justify-center items-center">
-				<Row>
-					<Typography variant={'body'}>
-						Videos: {videos.length}
-					</Typography>
-				</Row>
+			<main className="flex flex-col items-center">
 				<div
-					className="grid grid-cols-1 pt-4 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[800px] lg:max-w-[1200px] mx-auto px-6">
+					className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[800px] lg:max-w-[1200px] mx-auto px-6">
 					{videos.map((video, index) => (
-						<LinkCard maxHeight={'200px'} maxWidth={'300px'} href={`/${query.lang}/${video.id}`}
+						<LinkCard href={`/${query.lang}/${video.id}`}
+						          noPadding
+						          max-height={'200px'}
+						          max-width={'300px'}
 						          key={_.uniqueId(`${index}-language-`)}>
 							<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.id}`}
 							       className="object-cover"
 							       alt={'video'}
-							       width={300}
-							       height={200}/>
+							       width={0}
+							       height={0}
+							       sizes="100vw"
+							       style={{ width: '100%', height: '200px' }}/>
 						</LinkCard>
 					))}
 				</div>
+
+				<Row className="py-4">
+					<Typography variant={'body'}>
+						Videos: {videos.length}
+					</Typography>
+				</Row>
 			</main>
 		</>
 	)
 }
+
+Page.getLayout = (page: ReactElement) => (
+	<MainLayout>
+		{page}
+	</MainLayout>
+)
 
 export default Page
