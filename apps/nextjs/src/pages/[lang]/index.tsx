@@ -49,8 +49,8 @@ const Page = () => {
 							<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.id}`}
 							       className="object-cover"
 							       alt={'video'}
-							       width={0}
-							       height={0}
+							       width={400}
+							       height={200}
 							       sizes="100vw"
 							       style={{ width: '100%', height: '200px' }}/>
 						</LinkCard>
