@@ -40,13 +40,13 @@ const Page = () => {
 			<main className="flex flex-col items-center">
 				<div
 					className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[800px] lg:max-w-[1200px] mx-auto px-6">
-					{videos.map((video, index) => (
-						<LinkCard href={`/${query.lang}/${video.id}`}
+					{videos.map((video) => (
+						<LinkCard href={`/${query.lang}/${video.googleDriveId}`}
 						          noPadding
 						          max-height={'200px'}
 						          max-width={'300px'}
-						          key={_.uniqueId(`${index}-language-`)}>
-							<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.id}`}
+						          key={video.googleDriveId}>
+							<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
 							       className="object-cover"
 							       alt={'video'}
 							       width={400}
