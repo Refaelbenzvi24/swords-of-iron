@@ -55,7 +55,7 @@ const Page = () => {
 						// 	       style={{ width: '100%', height: '200px' }}/>
 						// </LinkCard>
 						<video class="gdriveVideo" preload="auto" controls>
-							<source src={`https://drive.google.com/uc?export=download&id=${query.videoId}`} type='video/mp4'>
+							<source src={`https://drive.google.com/uc?export=download&id=${query.videoId}`} type='video/mp4' />
 						</video>
 						
 					))}
