@@ -1,5 +1,5 @@
 import Head from "next/head";
-import {AppBar, Card, Main, Row, theme, ThemeToggle, Tooltip, Typography, useIsDark} from "@acme/ui";
+import {AppBar, Card, LinkButton, Main, Row, theme, ThemeToggle, Tooltip, Typography, useIsDark} from "@acme/ui";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import {api} from "~/utils/api";
@@ -7,6 +7,9 @@ import {getProxySSGHelpers} from "~/utils/ssg"
 import {GetServerSideProps} from "next";
 import Logo from "../../assets/logo.png"
 import LazyLoad from "react-lazyload";
+import IconCarbonHome from "~icons/carbon/home";
+import {css} from "@emotion/css"
+import tw from "twin.macro"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const search = context.query?.lang as string
@@ -32,7 +35,7 @@ const Page = () => {
 	return (
 		<>
 			<Head>
-				<title>Swords Of Iron | Admin</title>
+				<title>Swords Of Iron{query?.lang ? ` | ${query.lang}` : ''}</title>
 				<meta name="description" content="Swords Of Iron"/>
 			</Head>
 
@@ -42,6 +45,24 @@ const Page = () => {
 				        darkBackgroundColor={'#24235E'}>
 					<Row className="space-x-2">
 						<Row className="ltr:pl-2 rtl:pr-2">
+							<Tooltip tooltip={'Home'}
+							         bgColorDark={'#01002B'}
+							         placement="bottom-center">
+								<LinkButton
+									href={'/'}
+									text
+									noPadding
+									colorsForStates={theme.colorSchemeByState.header1}
+									colorsForStatesDark={theme.colorSchemeByState.light}
+									size={'22px'}
+									className={`${css`
+                                      ${tw`p-[10px]`};
+									`}`}
+									aria-label="home"
+									id="home-button">
+									<IconCarbonHome/>
+								</LinkButton>
+							</Tooltip>
 							<Tooltip tooltip={'Theme'}
 							         bgColorDark={'#01002B'}
 							         placement="bottom-center">
@@ -95,7 +116,8 @@ const Page = () => {
 						</div>
 					</Card>
 
-					<Card className="flex justify-center items-center h-[384px]" bgColor={'#010040'}
+					<Card className="flex justify-center items-center h-[384px]"
+					      bgColor={'#010040'}
 					      bgColorDark={'#010040'}>
 						<Image src={Logo} alt={''} height={307} width={281}/>
 					</Card>

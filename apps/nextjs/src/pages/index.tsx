@@ -12,7 +12,7 @@ const Page = () => {
 	return (
 		<>
 			<Head>
-				<title>Swords Of Iron | Admin</title>
+				<title>Swords Of Iron</title>
 				<meta name="description" content="Swords Of Iron"/>
 			</Head>
 
