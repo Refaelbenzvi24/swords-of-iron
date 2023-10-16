@@ -1,12 +1,14 @@
 import Head from "next/head";
 import {selectColors, Select, theme, Typography, selectComponents} from "@acme/ui";
-import {ReactElement} from "react";
+import {ReactElement, useState} from "react";
 import MainLayout from "~/layouts/MainLayout";
 import {css} from "@emotion/css";
 import Link from "next/link";
-import languages from "~/components/languages";
+import languages from "../components/languages";
 
 const Page = () => {
+	const [languageHasBeenSelected, setLanguageHasBeenSelected] = useState(false)
+
 	return (
 		<>
 			<Head>
@@ -26,10 +28,10 @@ const Page = () => {
 				        placeholder="Select Language"
 				        dark
 				        colorsDark={{
-							menu: {
-								menuBackgroundColor: '#D9D9D988',
-							},
-					        placeholder:        {
+					        menu: {
+						        menuBackgroundColor: '#D9D9D988',
+					        },
+					        placeholder: {
 						        placeholderTextColor: theme.colorScheme.light
 					        },
 					        control: {
@@ -37,10 +39,16 @@ const Page = () => {
 						        opacity: 0.4,
 						        inputBackgroundColor: '#D9D9D988',
 					        },
+					        loadingIndicator: {
+								loadingIndicatorColor: theme.colorScheme.light
+					        },
 					        dropdownIndicator: {
-								dropdownIndicatorColor: theme.colorScheme.light
+						        dropdownIndicatorColor: theme.colorScheme.light
 					        }
 				        }}
+				        onChange={() => setLanguageHasBeenSelected(true)}
+				        isLoading={languageHasBeenSelected}
+				        isDisabled={languageHasBeenSelected}
 				        isSearchable
 				        closeMenuOnSelect={false}
 				        components={{
@@ -48,7 +56,12 @@ const Page = () => {
 						        <selectComponents.Option {...props} data={data}>
 							        <Link href={`/${_.lowerCase(data.value)}`} className="flex flex-row">
 								        {data.icon}
-								        <Typography className="ml-2" variant={'body'}>{data.label}</Typography>
+								        <Typography className="ml-2"
+								                    color={theme.colorScheme.light}
+								                    darkColor={theme.colorScheme.light}
+								                    variant={'body'}>
+									        {data.label}
+								        </Typography>
 							        </Link>
 						        </selectComponents.Option>
 					        ),
@@ -56,7 +69,12 @@ const Page = () => {
 						        <selectComponents.SingleValue {...props} data={data}>
 							        <div className="flex flex-row">
 								        {data.icon}
-								        <Typography className="ml-2" variant={'body'}>{data.label}</Typography>
+								        <Typography className="ml-2"
+								                    color={theme.colorScheme.light}
+								                    darkColor={theme.colorScheme.light}
+								                    variant={'body'}>
+									        {data.label}
+								        </Typography>
 							        </div>
 						        </selectComponents.SingleValue>
 					        )

@@ -68,36 +68,36 @@ const TypographyStyled = styled.p(({
 	                                   centered,
                                    }: TypographyStyledProps) => [
 	!!color && css`
-    color: ${color};
+      color: ${color};
 	`,
-	
+
 	(props) => (!!darkColor && (dark || props.theme.isDark)) && css`
-    color: ${darkColor};
+      color: ${darkColor};
 	`,
-	
+
 	shadow && css`
-    text-shadow: ${theme.shadows[shadow]};
+      text-shadow: ${theme.shadows[shadow]};
 	`,
-	
+
 	strokeColor && css`
-    -webkit-text-stroke: ${strokeSize || 1}px ${strokeColor};
+      -webkit-text-stroke: ${strokeSize || 1}px ${strokeColor};
 	`,
-	
+
 	(props) => (!!darkStrokeColor && (dark || props.theme.isDark)) && css`
-    -webkit-text-stroke: ${darkStrokeColor || 1}px ${darkStrokeColor};
+      -webkit-text-stroke: ${darkStrokeColor || 1}px ${darkStrokeColor};
 	`,
-	
-	
+
+
 	settings[variant].uppercase ? tw`uppercase` : '',
-	
+
 	centered && tw`text-center`,
-	
+
 	css`
-    font-family: ${settings[variant].fontFamily};
-    font-weight: ${weight || settings[variant].weight};
-    font-size: ${(typeof size === 'number' ? `${size}rem` : size) || (typeof settings[variant].size === 'number' ? `${settings[variant].size}rem` : settings[variant].size)};
-    letter-spacing: ${spacing || settings[variant].spacing}rem;
-    line-height: ${lineHeight || settings[variant].lineHeight};
+      font-family: ${settings[variant].fontFamily};
+      font-weight: ${weight || settings[variant].weight};
+      font-size: ${(typeof size === 'number' ? `${size}rem` : size) || (typeof settings[variant].size === 'number' ? `${settings[variant].size}rem` : settings[variant].size)};
+      letter-spacing: ${spacing || settings[variant].spacing}rem;
+      line-height: ${lineHeight || settings[variant].lineHeight};
 	`,
 ])
 
@@ -107,7 +107,7 @@ const Typography = <Variant extends TypographyVariantOptions>(props: { as?: Elem
 	:
 	DetailedHTMLProps<HTMLAttributes<HTMLHeadElement>, HTMLHeadElement>) & TypographyStyledProps) => {
 	const {children, variant, as, ...restProps} = props
-	
+
 	return (
 		<TypographyStyled {...restProps}
 		                  as={as || settings[variant].htmlTag}
