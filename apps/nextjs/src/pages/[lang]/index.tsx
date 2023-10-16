@@ -44,7 +44,7 @@ const Page = () => {
 				        backgroundColor={'#F2F2F2'}
 				        darkBackgroundColor={'#24235E'}>
 					<Row className="space-x-2">
-						<Row className="ltr:pl-2 rtl:pr-2">
+						<Row className="space-x-4">
 							<Tooltip tooltip={'Home'}
 							         bgColorDark={'#01002B'}
 							         placement="bottom-center">
@@ -103,7 +103,7 @@ const Page = () => {
 										<video className="max-w-[388px] min-w-[388px] min-h-[568px] max-h-[568px]"
 										       width="388px"
 										       height="568px"
-										       preload="auto"
+										       preload="none"
 										       poster={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
 										       controls>
 											<source
