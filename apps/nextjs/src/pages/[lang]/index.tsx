@@ -86,7 +86,7 @@ const Page = () => {
 				</AppBar>
 
 				<Main className="justify-center overflow-x-hidden">
-					<Card className="p-6 pt-[240px] w-full rounded-t-[450px]"
+					<Card className="p-6 min-[1450px]:pt-[240px] min-[1000px]:pt-[140px] pt-[80px] w-full min-[1450px]:rounded-t-[450px] min-[1000px]:rounded-t-[300px] rounded-t-[150px]"
 					      bgColorDark={'#01002B'}
 					      noPadding>
 						<div
