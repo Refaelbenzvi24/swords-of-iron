@@ -5,9 +5,16 @@ import MainLayout from "~/layouts/MainLayout";
 import {css} from "@emotion/css";
 import Link from "next/link";
 import languages from "../components/languages";
+import {useRouter} from "next/router";
 
 const Page = () => {
+	const router = useRouter()
 	const [languageHasBeenSelected, setLanguageHasBeenSelected] = useState(false)
+
+	const handleLanguageChange = (language: string) => {
+		setLanguageHasBeenSelected(true)
+		void router.push(`/${language}`)
+	}
 
 	return (
 		<>
@@ -40,13 +47,13 @@ const Page = () => {
 						        inputBackgroundColor: '#D9D9D988',
 					        },
 					        loadingIndicator: {
-								loadingIndicatorColor: theme.colorScheme.light
+						        loadingIndicatorColor: theme.colorScheme.light
 					        },
 					        dropdownIndicator: {
 						        dropdownIndicatorColor: theme.colorScheme.light
 					        }
 				        }}
-				        onChange={() => setLanguageHasBeenSelected(true)}
+				        onChange={(selected) => handleLanguageChange(selected.value)}
 				        isLoading={languageHasBeenSelected}
 				        isDisabled={languageHasBeenSelected}
 				        isSearchable
