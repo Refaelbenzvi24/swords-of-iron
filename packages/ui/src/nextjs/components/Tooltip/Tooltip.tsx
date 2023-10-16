@@ -20,7 +20,9 @@ type Placement = `${'top' | 'bottom' | 'center'}-${'left' | 'right' | 'center'}`
 interface TooltipDivProps {
 	dark?: boolean,
 	color?: string
+	colorDark?: string
 	bgColor?: string
+	bgColorDark?: string
 	noShadow?: boolean
 	elevation?: keyof typeof theme.shadows
 	top: number | undefined,
@@ -31,38 +33,40 @@ const TooltipDiv = styled(motion.div, {
 	shouldForwardProp: (props) => shouldForwardProp<TooltipDivProps>(
 		[
 			"color",
+			"colorDark",
 			"noShadow",
 			"elevation",
 			"bgColor",
+			"bgColorDark",
 			"dark",
 			"top",
 			"left"
 		]
 	)(props as keyof TooltipDivProps)
-})(({color, noShadow, elevation, bgColor, dark, top, left}: TooltipDivProps) => [
+})(({color, colorDark, noShadow, elevation, bgColor, bgColorDark, dark, top, left}: TooltipDivProps) => [
 	tw`inline-block p-3`,
-	
+
 	!noShadow && css`
-    box-shadow: ${theme.shadows[elevation || 4]};
+      box-shadow: ${theme.shadows[elevation || 4]};
 	`,
-	
+
 	css`
-    color: ${color || theme.colorScheme.body2};
-    background-color: ${bgColor || theme.colorScheme.white};
+      color: ${color || theme.colorScheme.body2};
+      background-color: ${bgColor || theme.colorScheme.white};
 	`,
-	
+
 	(props) => (dark || props.theme.isDark) && css`
-    color: ${color || theme.colorScheme.accent};
-    background-color: ${bgColor || theme.colorScheme.overlaysDark};
-	`,
-	
+      color: ${colorDark || theme.colorScheme.accent};
+      background-color: ${bgColorDark || theme.colorScheme.overlaysDark};
+    }`,
+
 	css`
-    position: fixed;
-    white-space: nowrap;
-    z-index: ${theme.zIndex.tooltip};
-    top: ${top}px;
-    left: ${left}px;
-	`,
+      position: fixed;
+      white-space: nowrap;
+      z-index: ${theme.zIndex.tooltip};
+      top: ${top}px;
+      left: ${left}px;
+	`
 ])
 
 
@@ -106,13 +110,13 @@ const calcPlacement = (
 	let top = 0
 	let left = 0
 	const placementArr = placement.split('-')
-	
+
 	if (placementArr[0] === 'top') top = -(((elementHeight + tooltipHeight) / 2) + (offsetY))
 	if (placementArr[0] === 'bottom') top = ((elementHeight + tooltipHeight) / 2) + (offsetY)
-	
+
 	if (placementArr[1] === 'left') left = -(((elementWidth + tooltipWidth) / 2) + (offsetX))
 	if (placementArr[1] === 'right') left = ((elementWidth + tooltipWidth) / 2) + (offsetX)
-	
+
 	return {left, top}
 }
 
@@ -129,11 +133,15 @@ interface TooltipProps extends HTMLMotionProps<"div"> {
 	mobileThreshold?: number
 	isClickableOnMobile?: boolean
 	isPersistentOnMobile?: boolean
+	color?: string
+	colorDark?: string
+	bgColor?: string
+	bgColorDark?: string
 }
 
 const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 	const {isTouchable} = useMain()
-	
+
 	const {
 		children,
 		tooltip,
@@ -141,6 +149,10 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 		offsetY,
 		offsetX,
 		dark,
+		color,
+		colorDark,
+		bgColor,
+		bgColorDark,
 		preventDefaultEvent,
 		isClickableOnMobile,
 		mobileTimeout,
@@ -148,8 +160,7 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 		isPersistentOnMobile,
 		...restProps
 	} = props
-	
-	
+
 	const globalIsDarkMode = useIsDark()
 	const isDarkMode = dark || globalIsDarkMode
 	const [visible, setVisible] = useState(false)
@@ -158,12 +169,12 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 	const elementWrapper = useRef<HTMLDivElement>(null)
 	const tooltipElement = useRef<HTMLDivElement>(null)
 	const [hasFocusableChild, setHasFocusableChild] = useState(false)
-	
+
 	const callback = useCallback((event: LongPressEvent) => {
 		preventDefaultEvent && event.preventDefault()
 		setVisible(true)
 	}, [])
-	
+
 	const longPress = useLongPress(callback, {
 		onFinish: () => {
 			if (isTouchable && !isPersistentOnMobile) {
@@ -177,7 +188,7 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 		cancelOnMovement: false,
 		detect: LongPressDetectEvents.BOTH,
 	})
-	
+
 	const setPosition = () => {
 		if (elementWrapper.current && tooltipElement.current) {
 			const {height, width} = elementWrapper.current.getBoundingClientRect()
@@ -195,23 +206,23 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 				offsetX,
 				offsetY,
 			})
-			
+
 			const tooltipTop = top + (height / 2) - (tooltipHeight / 2) + topOffset
 			const tooltipLeft = left + (width / 2) - (tooltipWidth / 2) + leftOffset
-			
+
 			const tooltipTopPreventOverflow = Math.min(Math.max(tooltipTop, 0), window.innerHeight - tooltipHeight)
 			const tooltipLeftPreventOverflow = Math.min(Math.max(tooltipLeft, 0), window.innerWidth - tooltipWidth)
-			
+
 			setTop(() => tooltipTopPreventOverflow)
 			setLeft(() => tooltipLeftPreventOverflow)
 		}
 	}
-	
+
 	const hide = () => {
 		setVisible(false)
 	}
-	
-	
+
+
 	useEffect(() => {
 		window.addEventListener('scroll', setPosition)
 		window.addEventListener('resize', setPosition)
@@ -220,27 +231,31 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 			window.removeEventListener('resize', setPosition)
 		}
 	}, [])
-	
+
 	useEffect(() => {
 		if (elementWrapper.current) setHasFocusableChild(checkForFocusableChildren(elementWrapper.current))
 	}, [elementWrapper])
-	
-	
+
+
 	useEffect(() => {
 		setPosition()
 		if (visible && isTouchable) document.body.addEventListener('click', hide)
-		
+
 		return () => {
 			if (isTouchable) document.body.addEventListener('click', hide)
 		}
 	}, [visible])
-	
+
 	return (
 		<>
 			<AnimatePresence>
 				{visible ? (
 					<Portal>
 						<TooltipDiv
+							color={color}
+							colorDark={colorDark}
+							bgColor={bgColor}
+							bgColorDark={bgColorDark}
 							role="tooltip"
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -253,7 +268,8 @@ const Tooltip = (props: TooltipProps & typeof defaultProps) => {
 							ref={tooltipElement}>
 							<Typography variant="small"
 							            as={typeof tooltip === 'string' ? 'p' : 'span'}
-							            color={isDarkMode ? theme.colorScheme.accent : theme.colorScheme.body2}>
+							            color={color}
+							            darkColor={colorDark}>
 								{tooltip}
 							</Typography>
 						</TooltipDiv>

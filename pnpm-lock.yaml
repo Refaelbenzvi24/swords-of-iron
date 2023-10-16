@@ -270,6 +270,9 @@ importers:
       react-hook-form:
         specifier: ^7.43.7
         version: 7.43.7(react@18.2.0)
+      react-lazyload:
+        specifier: ^3.2.0
+        version: 3.2.0(react-dom@18.2.0)(react@18.2.0)
       react-merge-refs:
         specifier: ^2.0.1
         version: 2.0.1
@@ -322,6 +325,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.10
         version: 18.2.6
+      '@types/react-lazyload':
+        specifier: ^3.2.1
+        version: 3.2.1
       autoprefixer:
         specifier: ^10.4.13
         version: 10.4.13(postcss@8.4.21)
@@ -11199,6 +11205,12 @@ packages:
 
   /@types/react-dom@18.2.6:
     resolution: {integrity: sha512-2et4PDvg6PVCyS7fuTc4gPoksV58bW0RwSxWKcPRcHZf0PRUGq03TKcD/rUHe3azfV6/5/biUBJw+HhCQjaP0A==}
+    dependencies:
+      '@types/react': 18.2.14
+    dev: true
+
+  /@types/react-lazyload@3.2.1:
+    resolution: {integrity: sha512-LeJMJVTEGxcOLy9OFErOqNXIo506pxxDA/zgpTy8Bub508c1OS1Br4+b6jnhsOQQl4IwPPAnEDMqCnBJ9jauUw==}
     dependencies:
       '@types/react': 18.2.14
     dev: true
@@ -23903,6 +23915,16 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+
+  /react-lazyload@3.2.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zJlrG8QyVZz4+xkYZH5v1w3YaP5wEFaYSUWC4CT9UXfK75IfRAIEdnyIUF+dXr3kX2MOtL1lUaZmaQZqrETwgw==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react-merge-refs@2.0.1:
     resolution: {integrity: sha512-pywF6oouJWuqL26xV3OruRSIqai31R9SdJX/I3gP2q8jLxUnA1IwXcLW8werUHLZOrp4N7YOeQNZrh/BKrHI4A==}

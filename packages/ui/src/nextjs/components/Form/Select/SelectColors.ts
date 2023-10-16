@@ -2,6 +2,7 @@ import theme from "../../../Utils/theme"
 
 export interface SelectColors {
 	control: {
+		opacity: number
 		inputBackgroundColor: string
 		inputActiveBorder: string
 		inputDefaultBorder: string
@@ -46,6 +47,7 @@ export interface SelectColors {
 
 export const defaultColors = {
 	control:            {
+		opacity:              1,
 		inputBackgroundColor: theme.colorScheme.accent,
 		inputActiveBorder:    "transparent",
 		inputDefaultBorder:   "transparent",
@@ -81,7 +83,7 @@ export const defaultColors = {
 		placeholderTextColor: theme.colorScheme.subtitle1
 	},
 	selectContainer:    {
-		inputCornersColor: theme.colorScheme.accent
+		inputCornersColor: "transparent"
 	},
 	singleValue:        {
 		currentValueTextColor: theme.colorScheme.header2
@@ -91,6 +93,7 @@ export const defaultColors = {
 
 export const defaultColorsDark = {
 	control:            {
+		opacity:              1,
 		inputBackgroundColor: theme.colorScheme.overlaysDark,
 		inputActiveBorder:    "transparent",
 		inputDefaultBorder:   "transparent",
@@ -126,7 +129,7 @@ export const defaultColorsDark = {
 		placeholderTextColor: theme.colorScheme.subtitle1
 	},
 	selectContainer:    {
-		inputCornersColor: theme.colorScheme.overlaysDark
+		inputCornersColor: "transparent"
 	},
 	singleValue:        {
 		currentValueTextColor: theme.colorScheme.accent

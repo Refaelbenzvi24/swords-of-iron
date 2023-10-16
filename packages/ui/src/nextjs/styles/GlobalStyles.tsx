@@ -5,7 +5,7 @@ import {default as uiTheme} from '../Utils/theme'
 
 
 const customStyles = css({
-	
+
 	body: {
 		WebkitTapHighlightColor: theme`colors.purple.500`,
 		...tw`antialiased`,
@@ -42,13 +42,13 @@ const GlobalStyles = () => (
       html {
         color: black;
         transition: all 0.4s linear;
-        background-color: ${uiTheme.colorScheme.light};
+        background-color: #F2F2F2;
       }
 
       html.dark {
         color: white;
         transition: all 0.4s linear;
-        background-color: ${uiTheme.colorScheme.dark};
+        background-color: #24235E;
       }
 
       #app {

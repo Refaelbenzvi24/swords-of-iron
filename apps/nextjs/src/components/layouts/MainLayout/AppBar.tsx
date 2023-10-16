@@ -1,13 +1,9 @@
-import {AppBar, ATagButton, Navigation, NavigationItem, Row, theme, ThemeToggle, Tooltip, Typography} from "@acme/ui"
+import {
+	AppBar,
+} from "@acme/ui"
 import {useRouter} from "next/router"
-import Image from "next/image";
-import IconCarbonPhoneFilled from "~icons/carbon/phoneFilled"
-import {css} from "@emotion/css"
-import tw from "twin.macro"
 import {ComponentProps, useEffect} from "react";
 import clsx from "clsx";
-import useTranslation from "next-translate/useTranslation"
-import LanguageSelector from "~/components/LanguageSelector";
 
 export interface NavigationItemType {
 	label: string
@@ -25,7 +21,6 @@ const MainLayoutAppBar = (props: MainLayoutAppBarProps & Partial<ComponentProps<
 	const {setCurrentNavigation, navigationOptions, currentNavigation, className, ...restProps} = props
 
 	const router = useRouter()
-	const {t} = useTranslation()
 
 	const navigationOptionsString = JSON.stringify(navigationOptions)
 
@@ -39,15 +34,6 @@ const MainLayoutAppBar = (props: MainLayoutAppBarProps & Partial<ComponentProps<
 		<AppBar
 			{...restProps}
 			className={`justify-between px-16 ${clsx(className)}`}>
-			<Row className="space-x-2">
-				<Row className="ltr:pl-2 rtl:pr-2">
-					<Tooltip tooltip={t('common:theme')}
-					         color={theme.colorScheme.overlaysDark}
-					         placement="bottom-center">
-						<ThemeToggle/>
-					</Tooltip>
-				</Row>
-			</Row>
 		</AppBar>
 	)
 }

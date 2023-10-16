@@ -1,14 +1,12 @@
 import Head from "next/head";
-import {Row, Typography} from "@acme/ui";
-import _ from "lodash";
+import {AppBar, Card, Main, Row, theme, ThemeToggle, Tooltip, Typography, useIsDark} from "@acme/ui";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import {api} from "~/utils/api";
 import {getProxySSGHelpers} from "~/utils/ssg"
 import {GetServerSideProps} from "next";
-import LinkCard from "@acme/ui/src/nextjs/components/Cards/LinkCard";
-import {ReactElement} from "react";
-import MainLayout from "~/layouts/MainLayout";
+import Logo from "../../assets/logo.png"
+import LazyLoad from "react-lazyload";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const search = context.query?.lang as string
@@ -24,6 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Page = () => {
+	const isDark = useIsDark()
 	const {query} = useRouter()
 
 	const {data: videos} = api.videos.all.useQuery(query?.lang as string)
@@ -38,43 +37,72 @@ const Page = () => {
 			</Head>
 
 			<main className="flex flex-col items-center">
-				<div
-					className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:max-w-[800px] lg:max-w-[1200px] mx-auto px-6">
-					{videos.map((video) => (
-						// <LinkCard href={`/${query.lang}/${video.googleDriveId}`}
-						//           noPadding
-						//           max-height={'200px'}
-						//           max-width={'300px'}
-						//           key={video.googleDriveId}>
-						// 	<Image src={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
-						// 	       className="object-cover"
-						// 	       alt={'video'}
-						// 	       width={400}
-						// 	       height={200}
-						// 	       sizes="100vw"
-						// 	       style={{ width: '100%', height: '200px' }}/>
-						// </LinkCard>
-						<video className="gdriveVideo" preload="auto" controls>
-							<source src={`https://drive.google.com/uc?export=download&id=${video.googleDriveId}`} type='video/mp4' />
-						</video>
-						
-					))}
-				</div>
+				<AppBar className={`justify-between min-[800px]:px-40 px-10`}
+				        backgroundColor={'#F2F2F2'}
+				        darkBackgroundColor={'#24235E'}>
+					<Row className="space-x-2">
+						<Row className="ltr:pl-2 rtl:pr-2">
+							<Tooltip tooltip={'Theme'}
+							         bgColorDark={'#01002B'}
+							         placement="bottom-center">
+								<div className="flex flex-row justify-center items-center">
+									<ThemeToggle className="flex flex-row justify-center items-center space-x-2"
+									             colorsForStates={theme.colorSchemeByState.header1}
+									             colorsForStatesDark={theme.colorSchemeByState.light}>
+										<Typography variant={'body'}>
+											{isDark ? 'Dark mode' : 'Light mode'}
+										</Typography>
+									</ThemeToggle>
+								</div>
+							</Tooltip>
+						</Row>
+					</Row>
+					<Row className="py-4">
+						<Typography variant={'body'}>
+							Videos: {videos.length}
+						</Typography>
+					</Row>
+				</AppBar>
 
-				<Row className="py-4">
-					<Typography variant={'body'}>
-						Videos: {videos.length}
-					</Typography>
-				</Row>
+				<Main className="justify-center overflow-x-hidden">
+					<Card className="p-6 pt-[240px] w-full rounded-t-[450px]"
+					      bgColorDark={'#01002B'}
+					      noPadding>
+						<div
+							className="grid grid-cols-1 gap-10 min-[0px]:grid-cols-1 min-[1000px]:grid-cols-2 min-[1450px]:grid-cols-3 mx-auto px-6">
+							{videos.map((video) => (
+								<Card className="relative overflow-hidden rounded-xl"
+								      noPadding
+								      bgColor={'#D9D9D9'}
+								      bgColorDark={'#D9D9D9'}
+								      max-width={'388px'}
+								      max-height={'568px'}
+								      key={video.googleDriveId}>
+									<LazyLoad>
+										<video className="max-w-[388px] min-w-[388px] min-h-[568px] max-h-[568px]"
+										       width="388px"
+										       height="568px"
+										       preload="auto"
+										       poster={`https://drive.google.com/thumbnail?sz=w320&id=${video.googleDriveId}`}
+										       controls>
+											<source
+												src={`https://drive.google.com/uc?export=download&id=${video.googleDriveId}`}
+												type='video/mp4'/>
+										</video>
+									</LazyLoad>
+								</Card>
+							))}
+						</div>
+					</Card>
+
+					<Card className="flex justify-center items-center h-[384px]" bgColor={'#010040'}
+					      bgColorDark={'#010040'}>
+						<Image src={Logo} alt={''} height={307} width={281}/>
+					</Card>
+				</Main>
 			</main>
 		</>
 	)
 }
-
-Page.getLayout = (page: ReactElement) => (
-	<MainLayout>
-		{page}
-	</MainLayout>
-)
 
 export default Page

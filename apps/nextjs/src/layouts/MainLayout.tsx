@@ -1,17 +1,16 @@
 import MainLayoutAppBar, {type NavigationItemType} from "~/components/layouts/MainLayout/AppBar";
-import MainLayoutMobileAppBar from "~/components/layouts/MainLayout/MobileAppBar";
 import {Main} from "@acme/ui";
 import {useState, type ReactNode} from "react";
 import {useRouter} from "next/router";
 import useTranslation from "next-translate/useTranslation"
-import {css} from "@emotion/css"
-import tw from "twin.macro"
+import clsx from "clsx";
 
 interface MainLayoutProps {
 	children?: ReactNode
+	className?: string
 }
 
-const MainLayout = ({children}: MainLayoutProps) => {
+const MainLayout = ({children, className}: MainLayoutProps) => {
 	const router = useRouter()
 	const {t} = useTranslation()
 
@@ -25,8 +24,8 @@ const MainLayout = ({children}: MainLayoutProps) => {
 	const [currentNavigation, setCurrentNavigation] = useState<NavigationItemType>(initialNavigation || navigationOptions[0])
 
 	return (
-		<div className="h-full">
-			<MainLayoutAppBar{...{setCurrentNavigation, navigationOptions, currentNavigation}}/>
+		<div className={`h-full ${clsx(className)}`}>
+			<MainLayoutAppBar {...{setCurrentNavigation, navigationOptions, currentNavigation}}/>
 
 			<Main className="justify-center overflow-x-hidden">
 				{children}

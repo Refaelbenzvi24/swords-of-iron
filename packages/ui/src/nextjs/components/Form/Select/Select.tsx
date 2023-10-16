@@ -20,7 +20,7 @@ import ConditionalLabel from "../ConditionalLabel";
 import SelectProvider from "./SelectProvider"
 import { type SelectColors } from "./SelectColors"
 
-interface SelectOption {
+interface SelectOption extends Record<string, any> {
 	label: string
 	value: string
 }
@@ -33,8 +33,8 @@ interface SelectProps extends Omit<Props, "isRtl" | "onChange"> {
 	minContainerHeight?: string
 	dir?: "rtl" | "ltr"
 	dark?: boolean
-	colors?: SelectColors
-	colorsDark?: SelectColors
+	colors?: Partial<SelectColors>
+	colorsDark?: Partial<SelectColors>
 	options?: SelectOption[] | readonly SelectOption[]
 	error?: boolean
 	textInput?: boolean
@@ -197,7 +197,7 @@ const SelectWithLabel = forwardRef<ComponentRef<typeof Select>, SelectProps> ((p
 						           setIsFocused (false)
 					           }}
 					           onInputChange={(value, actionMeta) => {
-						           if (props.isMulti) setLocalInputValue (value)
+						           if (props.isMulti || props.isSearchable) setLocalInputValue (value)
 						           if (restProps.onInputChange) restProps.onInputChange (value, actionMeta)
 					           }}
 					           onChange={(value) => {
@@ -213,7 +213,8 @@ const SelectWithLabel = forwardRef<ComponentRef<typeof Select>, SelectProps> ((p
 					           isRtl={dir === "rtl"}
 					           components={{
 						           ...(removeAnimations ? customComponents : animatedComponents),
-						           ...(textInput ? { DropdownIndicator: null } : {})
+						           ...(textInput ? { DropdownIndicator: null } : {}),
+						           ...props.components
 					           }}/>
 				</SelectProvider>
 			</motion.div>

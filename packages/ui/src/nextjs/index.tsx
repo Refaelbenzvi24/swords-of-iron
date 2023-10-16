@@ -50,6 +50,9 @@ export {default as HamburgerSideBar} from './components/SideBar/HamburgerSideBar
 export {default as Table} from "./components/Table/Table"
 export {default as List} from "./components/List/List"
 export {default as ListItem} from "./components/List/ListItem"
+import * as selectComponents from "./components/Form/Select"
+export {selectComponents}
+export * as selectColors from "./components/Form/Select/SelectColors"
 
 // export {useTheme}
 export {default as useDimensions} from "./hooks/useDimensions"

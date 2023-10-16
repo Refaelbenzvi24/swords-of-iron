@@ -9,10 +9,10 @@ import tw from "twin.macro"
 
 
 const ThemeToggle = (props: ComponentProps<typeof Button>) => {
-	const {className, ...restProps} = props
-	
+	const {className, children, ...restProps} = props
+
 	const {theme, toggleTheme} = useTheme()
-	
+
 	return (
 		<Button
 			text
@@ -27,6 +27,7 @@ const ThemeToggle = (props: ComponentProps<typeof Button>) => {
 			onClick={toggleTheme}>
 			{theme === 'dark' && <IconCarbonMoon/>}
 			{theme === 'light' && <IconCarbonLight/>}
+			{children}
 		</Button>
 	)
 }

@@ -1,6 +1,7 @@
 import { SelectContext } from "./SelectContext"
 import { type ReactElement } from "react"
 import { defaultColors, defaultColorsDark, type SelectColors } from "./SelectColors"
+import _ from "lodash";
 
 interface SelectProviderOptions {
 	children: ReactElement
@@ -15,8 +16,8 @@ const SelectProvider = ({ children, dark, colors = defaultColors, colorsDark = d
 		<SelectContext.Provider value={{
 			theme: {
 				isDark:     dark,
-				colors:     colors,
-				colorsDark: colorsDark
+				colors:     _.assign({}, defaultColors, colors),
+				colorsDark: _.assign({}, defaultColorsDark, colorsDark)
 			}
 		}}>
 			{children}
