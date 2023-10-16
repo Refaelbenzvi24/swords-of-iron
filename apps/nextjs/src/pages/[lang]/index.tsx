@@ -59,7 +59,7 @@ const Page = () => {
 					</Row>
 					<Row className="py-4">
 						<Typography variant={'body'}>
-							Videos: {videos.length}
+							{videos.length} videos
 						</Typography>
 					</Row>
 				</AppBar>
