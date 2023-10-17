@@ -47,7 +47,7 @@ const languages = [
 	{value: "Albanian", label: "Albanian", icon: <IconEmojioneFlagForAlbania/>},
 	{value: "Arabic", label: "Arabic", icon: <IconOouiBoldArabDad/>},
 	{value: "Azerbaijani", label: "Azerbaijani", icon: <IconEmojioneFlagForAzerbaijan/>},
-	{value: "Brazillian", label: "Brazillian", icon: <IconEmojioneFlagForCongoBrazzaville/>},
+	{value: "Brazilian", label: "Brazilian", icon: <IconEmojioneFlagForCongoBrazzaville/>},
 	{value: "Bulgarian", label: "Bulgarian", icon: <IconEmojioneFlagForBulgaria/>},
 	{value: "Chinese", label: "Chinese", icon: <IconEmojioneFlagForChina/>},
 	{value: "Croatian", label: "Croatian", icon: <IconEmojioneFlagForCroatia/>},
