@@ -10,44 +10,46 @@ import {default as withNextTranslate} from "next-translate-plugin"
 
 /** @type {import("next").NextConfig} */
 const config = withTwin(withNextTranslate({
-    reactStrictMode: true,
-    swcMinify:       true,
-    images:          {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'drive.google.com',
-                pathname: '/**'
-            }
-        ]
-    },
+	reactStrictMode: true,
+	swcMinify: true,
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'drive.google.com',
+				pathname: '/**'
+			}
+		]
+	},
 
-    // @ts-ignore-next-line
-    i18n: {
-        localeDetection: false,
-    },
+	// @ts-ignore-next-line
+	i18n: {
+		localeDetection: false,
+	},
 
-    webpack: (config) => {
-        config.plugins.push(
-            Icons({
-                compiler: 'jsx',
-                jsx:      'react'
-            })
-        )
-        config.module.rules.push({
-            test: /\.ya?ml$/,
-            use:  'yaml-loader'
-        })
+	webpack: (config) => {
+		config.plugins.push(
+			Icons({
+				compiler: 'jsx',
+				jsx: 'react'
+			})
+		)
+		config.module.rules.push({
+			test: /\.ya?ml$/,
+			use: 'yaml-loader'
+		})
 
-        return config
-    },
-    // experimental:      {
-    //     optimizeCss: true, // enabling this will enable SSR for Tailwind
-    // },
-    transpilePackages: ["@acme/api", "@acme/auth", "@acme/db", "@acme/ui"],
-    /** We already do linting and typechecking as separate tasks in CI */
-    eslint:     {ignoreDuringBuilds: !!process.env.CI},
-    typescript: {ignoreBuildErrors: !!process.env.CI}
+		return config
+	},
+	// experimental:      {
+	//     optimizeCss: true, // enabling this will enable SSR for Tailwind
+	// },
+	transpilePackages: ["@acme/api", "@acme/auth", "@acme/db", "@acme/ui"],
+
+	...(!!process.env.NEXT_STANDALONE ? {output: 'standalone'} : {}),
+	/** We already do linting and typechecking as separate tasks in CI */
+	eslint: {ignoreDuringBuilds: !!process.env.CI},
+	typescript: {ignoreBuildErrors: !!process.env.CI}
 }))
 
 export default config

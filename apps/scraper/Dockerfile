@@ -8,7 +8,7 @@ RUN apk update
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune --scope=scraper --docker
+RUN turbo prune --scope=@acme/scraper --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM node:18.12-alpine3.16 AS installer
@@ -36,4 +36,6 @@ WORKDIR /app/apps/scraper
 RUN addgroup --system --gid 1001 scraper
 RUN adduser --system --uid 1001 scraper
 USER scraper
+ENV PORT 3000
+ENV HOST "0.0.0.0"
 CMD ["npm", "start"]

@@ -78,6 +78,35 @@ services:
     networks:
       - main_network
 
+  nextjs:
+    container_name: nextjs.swords-of-iron_container
+    depends_on:
+      - postgres
+      - message_broker
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgres://root:1234@localhost:5432/swords-of-iron?schema=public}
+      MESSAGE_BROKER_HOST: ${MESSAGE_BROKER_HOST:-localhost}
+      MESSAGE_BROKER_USER: ${MESSAGE_BROKER_USER:-guest}
+      MESSAGE_BROKER_PASSWORD: ${MESSAGE_BROKER_PASSWORD:-guest}
+      MESSAGE_BROKER_PROTOCOL: ${MESSAGE_BROKER_PROTOCOL:-amqp}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-QTd5OzatIvH0zIncZHzC2xV483xq7St/ACxMY+OSIRA=}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      EMAIL_PORT: ${EMAIL_PORT:-_}
+      EMAIL_HOST: ${EMAIL_HOST:-_}
+      EMAIL_USER: ${EMAIL_USER:-_}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD:-_}
+      EMAIL_SERVICE: ${EMAIL_SERVICE:-_}
+      CI: ${CI:-false}
+      NEXT_STANDALONE: ${NEXT_STANDALONE:-true}
+    build:
+      context: .
+      dockerfile: ./apps/nextjs/Dockerfile
+    restart: unless-stopped
+    networks:
+      - main_network
+
 networks:
   main_network:
     driver: bridge
