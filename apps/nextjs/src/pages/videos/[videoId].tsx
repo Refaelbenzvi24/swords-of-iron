@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const videoId = context.query?.videoId as string
 	const ssg = await getProxySSGHelpers(context)
 
-	await ssg.videos.get.useQuery(videoId)
+	await ssg.videos.get.prefetch(videoId)
 
 	return {
 		props: {
