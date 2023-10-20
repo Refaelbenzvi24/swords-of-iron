@@ -20,7 +20,7 @@ import ConditionalLabel from "../ConditionalLabel";
 import SelectProvider from "./SelectProvider"
 import { type SelectColors } from "./SelectColors"
 
-interface SelectOption extends Record<string, any> {
+export interface SelectOption extends Record<string, any> {
 	label: string
 	value: string
 }

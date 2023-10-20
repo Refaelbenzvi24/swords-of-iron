@@ -1,4 +1,4 @@
-import {forwardRef, useEffect, useRef, useState, type FormEvent, FC, ChangeEvent} from "react"
+import {forwardRef, useEffect, useRef, useState, type FormEvent} from "react"
 
 import {css as classCss} from "@emotion/css"
 import {css} from "@emotion/react"
@@ -46,15 +46,15 @@ export const TextFieldInput = styled('input', {
 	) =>
 		[
 			tw`w-full py-[7px] resize-none place-self-center`,
-			
+
 			hasBeforeIcon ? tw`ltr:pl-[54px] rtl:pr-[54px] ltr:pr-[10px] rtl:pl-[10px]` : tw`ltr:pl-[22px] rtl:pr-[22px] ltr:pr-[10px] rtl:pl-[10px]`,
-			
+
 			centered && tw`text-center`,
-			
+
 			removeShadow ? '' : css`
         box-shadow: ${theme.shadows["2"]};
 			`,
-			
+
 			css`
         background-color: ${bgColor};
         color: ${theme.colorScheme.header2};
@@ -92,7 +92,7 @@ export const TextFieldInput = styled('input', {
           opacity: 0.8;
         }
 			`,
-			
+
 			(props) => (dark || props.theme.isDark) && css`
         background-color: ${bgColorDark};
         color: ${theme.colorScheme.accent};
@@ -151,24 +151,24 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps & Omit<TextFieldIn
 		beforeIcon,
 		...restProps
 	} = props
-	
+
 	const [localValue, setLocalValue] = useState<string | readonly string[] | number>('')
-	
+
 	const sectionRef = useRef<HTMLInputElement | null>(null)
 	const inputRef = useRef<HTMLInputElement | null>(null)
-	
+
 	const requiredStar = `${required ? '*' : ''}`
 	const localLabel = `${label ? `${label}${requiredStar}` : ''}`
 	const localPlaceholder = `${placeholder ? `${placeholder}${requiredStar}` : (!persistentLabel ? localLabel : '') || ''}`
-	
+
 	useEffect(() => {
 		if (sectionRef.current !== null) autoAnimate(sectionRef.current)
 	}, [sectionRef])
-	
+
 	useEffect(() => {
 		if (typeof value === 'string') setLocalValue(value)
 	}, [value])
-	
+
 	useEffect(() => {
 		if (inputRef.current) setLocalValue(() => inputRef.current!.value || value || '')
 	}, [inputRef.current?.value])
@@ -178,7 +178,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps & Omit<TextFieldIn
 				condition={persistentLabel ? true : !!localValue}
 				label={localLabel}
 				{...labelProps}/>
-			
+
 			{beforeIcon && (
 				<div className="relative">
 					<BeforeIconWrapper
@@ -190,7 +190,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps & Omit<TextFieldIn
 					</BeforeIconWrapper>
 				</div>
 			)}
-			
+
 			<TextFieldInput {...restProps}
 			                ref={mergeRefs([ref, inputRef])}
 			                hasBeforeIcon={!!beforeIcon}
@@ -204,7 +204,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps & Omit<TextFieldIn
 			                }}
 			                placeholder={localPlaceholder}
 			                value={localValue}/>
-			
+
 			{!!helperText && (
 				<HelperText {...{...helperTextProps, error}}>
 					{helperText}

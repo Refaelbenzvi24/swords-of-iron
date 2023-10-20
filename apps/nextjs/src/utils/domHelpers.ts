@@ -1,5 +1,5 @@
-export const scrollToElement = (selector: string) => {
-	const element = document.querySelector(selector)
+export const scrollToElement = (selectorOrElement: string | Element) => {
+	const element = typeof selectorOrElement === 'string'? document.querySelector(selectorOrElement) : selectorOrElement
 
 	if (element) element.scrollIntoView({ behavior: 'smooth' })
 }
@@ -21,7 +21,7 @@ export const scrollToSelector = (selector: string, offset = -100) => {
 
 export const interpolate = (x: number | undefined, [y1, y2]: [y1: number, y2: number], [x1, x2]: [x1: number, x2: number]) => {
 	if (typeof x === 'undefined') return y1
-	
+
 	return y1 + ((x - x1) / (x2 - x1)) * (y2 - y1)
 }
 
@@ -39,22 +39,28 @@ export const isTouchDevice = () => {
 	return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0))
 }
 
-interface Omit {
-	<T extends object, K extends [...(keyof T)[]]>
-	(obj: T, ...keys: K): {
-		[K2 in Exclude<keyof T, K[number]>]: T[K2]
-	}
+const waitForElm = (selectorOrElement: string | Element | null): Promise<Element> => {
+	return new Promise(resolve => {
+		const element = typeof selectorOrElement === 'string' ? document.querySelector(selectorOrElement) : selectorOrElement
+		if (element) {
+			return resolve(element);
+		}
+
+		const observer = new MutationObserver(mutations => {
+			const element = typeof selectorOrElement === 'string' ? document.querySelector(selectorOrElement) : selectorOrElement
+			console.log('mutation')
+			if (element) {
+			console.log('mutation resolve')
+				observer.disconnect();
+				resolve(element);
+			}
+		});
+
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
+	});
 }
 
-export const omit: Omit = (obj, ...keys) => {
-	const ret = {} as {
-		[K in keyof typeof obj]: (typeof obj)[K]
-	};
-	let key: keyof typeof obj;
-	for (key in obj) {
-		if (!(keys.includes(key))) {
-			ret[key] = obj[key];
-		}
-	}
-	return ret;
-};
+export { waitForElm }

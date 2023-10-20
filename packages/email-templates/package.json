@@ -1,6 +1,6 @@
 {
   "name": "@acme/email-templates",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "src/index.tsx",
   "types": "src/index.tsx",
@@ -13,12 +13,12 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "@acme/ui": "*",
+    "@acme/ui": "0.1.0",
     "@react-email/components": "0.0.4",
     "@react-email/render": "0.0.6"
   },
   "devDependencies": {
-    "@acme/validations": "*",
+    "@acme/validations": "0.1.0",
     "typescript": "^5.0.0"
   }
 }

@@ -10,11 +10,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/auth": "*",
-    "@acme/db": "*",
-    "@acme/message-broker": "*",
-    "@acme/email-templates": "*",
-    "@acme/validations": "*",
+    "@acme/auth": "0.1.0",
+    "@acme/db": "0.1.0",
+    "@acme/message-broker": "0.1.0",
+    "@acme/email-templates": "0.1.0",
+    "@acme/validations": "0.1.0",
     "@trpc/client": "^10.38.5",
     "@trpc/server": "^10.38.5",
     "nodemailer": "^6.9.1",
@@ -27,7 +27,7 @@
     "@types/nodemailer-smtp-transport": "^2.7.5",
     "@types/preview-email": "^3.0.0",
     "eslint": "^8.34.0",
-    "eslint-config-acme": "*",
+    "@acme/eslint-config": "0.1.0",
     "preview-email": "^3.0.10",
     "typescript": "^5.0.0"
   }
